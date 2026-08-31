@@ -1,0 +1,6 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { products } from '../../data';
+
+export function generateStaticParams() { return products.map(product => ({ slug: product.slug })); }
+export default async function ProductPage({ params }: { params: Promise<{ slug:string }> }) { const { slug } = await params; const product = products.find(item => item.slug === slug); if (!product) notFound(); return <main className="detail-page"><div className={`detail-image ${product.className}`}><img src={product.image} alt={product.name} /></div><section className="detail-info"><Link href="/products">← All products</Link><p>{product.eyebrow} &nbsp; · &nbsp; {product.delivery}</p><h1>{product.name}</h1><h2>{product.price}</h2><div className="detail-rule" /><p className="detail-description">Distinctive print, beautifully finished. We’ll tailor the size, stock, colour and production details to suit your brand and budget.</p><ul><li>Personal material and finish guidance</li><li>Digital proof before production</li><li>Careful quality checks throughout</li></ul><Link className="dark-button" href="/quote">Start a quote <span>→</span></Link><small>Need help? We usually reply within one working day.</small></section></main>; }

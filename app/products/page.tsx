@@ -1,0 +1,6 @@
+import type { Metadata } from 'next';
+import { ProductCard } from '../SiteChrome';
+import { products } from '../data';
+
+export const metadata: Metadata = { title: 'Products — Paper & Press', description: 'Browse premium custom print, stationery and packaging products.' };
+export default function ProductsPage() { return <main><section className="page-hero"><p>Our products</p><h1>Made to be held.<br /><i>Designed to be remembered.</i></h1><span>Premium print and packaging, with low minimums and considered finishes.</span></section><div className="filter-bar"><button className="active">All products</button><button>Packaging</button><button>Print</button><button>Stationery</button><button>Gifting</button></div><section className="product-section catalog"><div className="catalog-top"><p>{products.length} products</p><select aria-label="Sort products"><option>Featured</option><option>Price: Low to high</option><option>Minimum quantity</option></select></div><div className="product-grid">{products.map(product => <ProductCard key={product.slug} product={product} />)}</div></section><section className="project-banner"><p>Can’t see exactly what you need?</p><h2>That is where the possibilities begin.</h2><a href="/quote">Talk to our team →</a></section></main>; }
