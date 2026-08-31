@@ -1,5 +1,3 @@
-import type { Metadata } from 'next';
-import QuoteForm from '../QuoteForm';
-
-export const metadata: Metadata = { title: 'Start a quote — Paper & Press', description: 'Tell Paper & Press about your custom print or packaging project.' };
-export default function QuotePage() { return <main className="quote-page"><section><p>Start a quote</p><h1>Bring us the idea.<br /><i>We’ll find the way.</i></h1><span>Share what you know so far. It does not need to be a perfect brief—we will help shape the details.</span><div className="quote-contact"><p><b>Prefer email?</b><br />hello@paperandpress.com</p><p><b>Studio hours</b><br />Monday–Friday, 9:30–18:00 IST</p></div></section><QuoteForm /></main>; }
+import type {Metadata} from 'next';import QuoteForm from '../QuoteForm';
+export const metadata:Metadata={title:'Request Wholesale Pricing — Paper & Press',description:'Send your bulk paper packaging specification to our Jaipur team.'};
+export default function QuotePage(){return <main className="quote-page"><section><p>B2B wholesale pricing</p><h1>Tell us the<br/><i>production run.</i></h1><span>Share the product, size, quantity, quality tier, printing and delivery PIN code. We’ll reply with the right material and an exact ex-GST quote.</span><div className="quote-contact"><p><b>Jaipur studio</b><br/>Serving businesses across India</p><p><b>Bulk orders only</b><br/>Typical MOQ 500–5,000 pieces</p></div></section><QuoteForm/></main>}
