@@ -21,7 +21,7 @@ export default function CategoryCRO({item,related,images}:{item:B2BCategory;rela
   if(!story)return null;
   const variant=Math.abs(item.slug.split('').reduce((sum,char)=>sum+char.charCodeAt(0),0))%3;
   const process=processFor(item);
-  return <div className={`category-story story-${variant}`}>
+  return <div className={`category-story story-${variant} story-${item.slug}`}>
     <section className="story-opener">
       <div className="story-opener-copy">
         <span>{story.eyebrow}</span>
