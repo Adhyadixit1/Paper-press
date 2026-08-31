@@ -14,10 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://paper-and-press.shipiologistics.chatgpt.site'),
   title: 'Paper & Press — Print Packaging Possibilities',
   description: 'Premium custom print and packaging, beautifully made for ambitious brands.',
-  openGraph: { title: 'Paper & Press', description: 'Print • Packaging • Possibilities', type: 'website', images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Paper & Press — Print Packaging Possibilities' }] },
-  twitter: { card: 'summary_large_image', title: 'Paper & Press', description: 'Print • Packaging • Possibilities', images: ['/og.png'] },
+  openGraph: { title: 'Paper & Press', description: 'Print • Packaging • Possibilities', type: 'website', images: [{ url: 'https://paper-and-press.shipiologistics.chatgpt.site/og.png', width: 1731, height: 909, alt: 'Paper & Press — Print Packaging Possibilities' }] },
+  twitter: { card: 'summary_large_image', title: 'Paper & Press', description: 'Print • Packaging • Possibilities', images: ['https://paper-and-press.shipiologistics.chatgpt.site/og.png'] },
 };
 
 export default function RootLayout({
