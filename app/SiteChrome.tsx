@@ -6,6 +6,8 @@ import QuoteCart from './QuoteCart';
 import HoverCardGallery from './HoverCardGallery';
 import {productCardGallery} from './cardGalleries';
 
+const clientBrands=['Baggu','PopUp Grocer','Momofuku','Flamingo Estate','Garmentory','Micos','Edie Parker','For Love & Lemons','Carhartt WIP','Partners Coffee','Sweetgreen','Arc’teryx'];
+
 export function Header(){ const announcement='B2B WHOLESALE ONLY · BULK PRODUCTION · PAN-INDIA DOOR-TO-DOOR DELIVERY'; return <>
   <div className="review-strip" aria-label="Wholesale delivery announcement"><div className="announcement-track">{[0,1].map(loop=><Link className="announcement-group" href="/delivery" aria-hidden={loop===1?'true':undefined} key={loop}><b>{announcement}</b><span>HOW DELIVERY WORKS →</span></Link>)}</div></div>
   <header className="site-header">
@@ -14,7 +16,7 @@ export function Header(){ const announcement='B2B WHOLESALE ONLY · BULK PRODUCT
     <SearchBox/>
     <div className="header-actions"><Link className="ship-button" href="/delivery">Deliver to: <b>All India</b></Link><Link className="account-button" href="/quote">Get wholesale quote</Link><QuoteCart/></div>
   </header>
-  <div className="client-marquee"><div>{['Baggu','PopUp Grocer','Momofuku','Flamingo Estate','Garmentory','Micos','Edie Parker','For Love & Lemons','Carhartt WIP','Partners Coffee','Sweetgreen','Arc’teryx'].concat(['Baggu','PopUp Grocer','Momofuku','Flamingo Estate']).map((name,index)=><span key={`${name}-${index}`}>{name}</span>)}</div></div>
+  <div className="client-marquee" aria-label="Brands inspiring our packaging"><div className="client-marquee-track">{[0,1].map(loop=><div className="client-marquee-group" aria-hidden={loop===1?'true':undefined} key={loop}>{clientBrands.map(name=><span key={`${loop}-${name}`}>{name}</span>)}</div>)}</div></div>
   </>; }
 
 const columns=[
