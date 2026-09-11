@@ -68,7 +68,7 @@ export default async function LocalPackagingPage({
               },
               founder: [
                 { "@type": "Person", name: "Ojas Dixit" },
-                { "@type": "Person", name: "Akshay Patel" },
+                { "@type": "Person", name: "Pradhuman Sharma" },
               ],
               makesOffer: {
                 "@type": "Offer",

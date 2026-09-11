@@ -23,7 +23,7 @@ const trends = [
 const inspirationBrands=['Baggu','Momofuku','Sweetgreen','Carhartt WIP','Partners Coffee','Arc’teryx'];
 const founderCards=[
   {name:'Ojas Dixit',initials:'OD',photo:'/founders/ojas-dixit.jpeg',role:'Co-founder · Brand, sales and growth',copy:'Ojas works closest to founders, restaurants, manufacturers and retail teams—turning rough packaging ideas into clear briefs, commercial options and repeatable buying systems.'},
-  {name:'Akshay Patel',initials:'AP',role:'Co-founder · Operations and production',copy:'Akshay focuses on production discipline: material selection, vendor coordination, proof checks, timelines and dispatch planning so bulk packaging feels predictable.'},
+  {name:'Pradhuman Sharma',initials:'PS',photo:'/founders/pradhuman-sharma.jpeg',role:'Co-founder · Operations and production',copy:'Pradhuman focuses on production discipline: material selection, vendor coordination, proof checks, timelines and dispatch planning so bulk packaging feels predictable.'},
 ];
 const trustCards=[
   {metric:'Brief clarity first',copy:'Buyers tell us the biggest relief is knowing what size, material, MOQ and finish they should choose before spending on bulk production.'},
@@ -56,8 +56,8 @@ export default async function Home() {
     <section className="home-story" id="founders">
       <div className="home-story-copy">
         <span>Built in Jaipur</span>
-        <h2>Two brothers making packaging easier for ambitious Indian brands.</h2>
-        <p>Paper & Press is led by Ojas Dixit and Akshay Patel, two brothers from Jaipur building a practical, design-aware packaging partner for businesses that are ready to scale. The idea is simple: if a brand can describe what it sells, we should be able to guide the right box, paper, print finish, quantity plan and delivery route without making the buyer chase five different suppliers.</p>
+        <h2>Two Jaipur founders making packaging easier for ambitious Indian brands.</h2>
+        <p>Paper & Press is led by Ojas Dixit and Pradhuman Sharma, two Jaipur founders building a practical, design-aware packaging partner for businesses that are ready to scale. The idea is simple: if a brand can describe what it sells, we should be able to guide the right box, paper, print finish, quantity plan and delivery route without making the buyer chase five different suppliers.</p>
         <p>From ghee cartons, pizza boxes and mithai boxes to masala packaging, courier boxes, cafe cups, hospital files and garment inserts, the team focuses on bulk production that looks good, protects the product and arrives with clear communication.</p>
         <div className="home-story-links">
           <Link href="/about">Read our story</Link>
