@@ -1,8 +1,14 @@
 import { getCatalog } from "../../lib/catalog";
 import { siteUrl } from "../../lib/seo";
+import { localSeoPages } from "../localSeo";
 export const dynamic = "force-dynamic";
 export async function GET() {
   const catalog = await getCatalog();
+  const representativeLocalPages = localSeoPages.filter(
+    ({ category, location }) =>
+      location.slug === "jaipur" &&
+      ["ghee-boxes", "pizza-boxes", "mithai-boxes", "masala-boxes", "paper-cups", "courier-boxes", "hospital-files", "retail-paper-bags"].includes(category.slug),
+  );
   const text = [
     "# Paper & Press",
     "",
@@ -29,6 +35,13 @@ export async function GET() {
     ...catalog.map(
       (p) =>
         `- [${p.name}](${siteUrl}/${p.kind === "category" ? "categories" : "products"}/${p.slug}): ${p.summary.replace(/\s+/g, " ")} — ${p.price}; ${p.moq}`,
+    ),
+    "",
+    "## Local packaging landing pages",
+    `Paper & Press publishes ${localSeoPages.length} location-specific packaging guides covering Jaipur localities and Rajasthan cities. These pages explain use cases, material tiers, wholesale pricing variables, MOQs, delivery planning and custom-size quote requirements for each category/location combination.`,
+    ...representativeLocalPages.map(
+      ({ category, location }) =>
+        `- [${category.name} in ${location.name}](${siteUrl}/packaging/${category.slug}/${location.slug}): Wholesale ${category.name.toLowerCase()} for ${location.angle}.`,
     ),
     "",
     "## Contact",

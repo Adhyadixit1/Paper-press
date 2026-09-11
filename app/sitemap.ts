@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getCatalog } from "../lib/catalog";
 import { siteUrl } from "../lib/seo";
+import { localSeoPages } from "./localSeo";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages = [
@@ -31,6 +32,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8,
       images: p.images.map((img) => new URL(img, siteUrl).href),
+    })),
+    ...localSeoPages.map(({ category, location }) => ({
+      url: `${siteUrl}/packaging/${category.slug}/${location.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: location.slug === "jaipur" ? 0.72 : 0.55,
     })),
   ];
 }
