@@ -22,7 +22,7 @@ const trends = [
 ];
 const inspirationBrands=['Baggu','Momofuku','Sweetgreen','Carhartt WIP','Partners Coffee','Arc’teryx'];
 const founderCards=[
-  {name:'Ojas Dixit',initials:'OD',role:'Co-founder · Brand, sales and growth',copy:'Ojas works closest to founders, restaurants, manufacturers and retail teams—turning rough packaging ideas into clear briefs, commercial options and repeatable buying systems.'},
+  {name:'Ojas Dixit',initials:'OD',photo:'/founders/ojas-dixit.jpeg',role:'Co-founder · Brand, sales and growth',copy:'Ojas works closest to founders, restaurants, manufacturers and retail teams—turning rough packaging ideas into clear briefs, commercial options and repeatable buying systems.'},
   {name:'Akshay Patel',initials:'AP',role:'Co-founder · Operations and production',copy:'Akshay focuses on production discipline: material selection, vendor coordination, proof checks, timelines and dispatch planning so bulk packaging feels predictable.'},
 ];
 const trustCards=[
@@ -66,7 +66,7 @@ export default async function Home() {
       </div>
       <div className="founder-grid" aria-label="Founder image placeholders">
         {founderCards.map(founder=><article key={founder.name}>
-          <div className="founder-photo"><b>{founder.initials}</b><span>Image placeholder</span></div>
+          <div className={`founder-photo ${founder.photo?'has-photo':''}`}>{founder.photo?<img src={founder.photo} alt={`${founder.name}, Paper & Press founder`}/>:<><b>{founder.initials}</b><span>Image placeholder</span></>}</div>
           <h3>{founder.name}</h3>
           <small>{founder.role}</small>
           <p>{founder.copy}</p>
