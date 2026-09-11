@@ -39,6 +39,14 @@ export default function VisitorAnalytics() {
       ? path.split("/").slice(1).join(":")
       : "";
     const send = (type: string, extra: Record<string, unknown> = {}) => {
+      const gtag = (window as Window & {
+        gtag?: (...args: unknown[]) => void;
+      }).gtag;
+      gtag?.("event", type, {
+        page_path: path,
+        item_name: product || extra.product,
+        search_term: extra.search_term,
+      });
       eventQueue = eventQueue.then(async () => {
         try {
           if (localStorage.getItem("pp_analytics_consent") !== "yes") return;
