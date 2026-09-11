@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {b2bCategories} from './catalog';
+import {getCategories} from '../lib/catalog';
 
 type ProductLike={slug:string;name:string;eyebrow:string;delivery:string;price:string};
 type Profile={buyers:string[];uses:string[];benefit:string;related:string[]};
@@ -24,8 +24,9 @@ const profiles:Record<string,Profile>={
   'plain-corrugated-boxes':{buyers:['Ecommerce sellers','Warehouses','Manufacturers'],uses:['Everyday courier dispatch','Storage and stock transfer','Outer cartons for distribution'],benefit:'Plain boxes prioritise protection and price: the right internal dimensions and ply prevent wasted space and avoid paying for unnecessary print.',related:['plain-corrugated-boxes','industrial-cartons','box-inserts-dividers']},
 };
 
-export default function ProductCRO({product}:{product:ProductLike}){
-  const profile=profiles[product.slug]||profiles['rigid-boxes'];
+export default async function ProductCRO({product}:{product:ProductLike}){
+  const b2bCategories=await getCategories();
+  const profile=profiles[product.slug]||{buyers:['Wholesale buyers'],uses:['Custom business packaging'],benefit:'Specify your product dimensions, materials and order volume for a production-ready packaging brief.',related:[]};
   const related=profile.related.map(slug=>b2bCategories.find(item=>item.slug===slug)).filter(Boolean) as typeof b2bCategories;
   return <div className="product-cro">
     <section className="product-proof"><div><strong>Free</strong><span>expert design proof</span></div><div><strong>Pan-India</strong><span>door-to-door delivery</span></div><div><strong>{product.delivery}</strong><span>indicative production</span></div></section>
@@ -53,12 +54,12 @@ export default function ProductCRO({product}:{product:ProductLike}){
 
     <section className="product-cro-section review-section">
       <span className="product-cro-kicker">Buyer review checklist</span><h2>What teams ask us to get right.</h2>
-      <div className="review-cards"><article><div>★★★★★</div><p>“Will the material hold up through packing, stacking and delivery?”</p><span>Structure &amp; protection review</span></article><article><div>★★★★★</div><p>“Will the printed colour and finish feel consistent across a full run?”</p><span>Artwork &amp; production proof</span></article><article><div>★★★★★</div><p>“Can the exact approved specification be repeated next month?”</p><span>Reorder &amp; supply planning</span></article></div>
+      <div className="review-cards"><article><div>Production check</div><p>“Will the material hold up through packing, stacking and delivery?”</p><span>Structure &amp; protection review</span></article><article><div>Production check</div><p>“Will the printed colour and finish feel consistent across a full run?”</p><span>Artwork &amp; production proof</span></article><article><div>Production check</div><p>“Can the exact approved specification be repeated next month?”</p><span>Reorder &amp; supply planning</span></article></div>
     </section>
 
     <section className="product-cro-section">
       <span className="product-cro-kicker">Build the complete system</span><h2>Related packaging.</h2>
-      <div className="product-related">{related.map(item=><Link key={item.slug} href={`/categories/${item.slug}`}><img src={`/catalog/${item.slug}-01.webp`} alt={item.name}/><div><small>{item.family}</small><h3>{item.name}</h3><b>{item.price}</b><span>Explore →</span></div></Link>)}</div>
+      <div className="product-related">{related.map(item=><Link key={item.slug} href={`/categories/${item.slug}`}><img src={item.images[0]} alt={item.name}/><div><small>{item.family}</small><h3>{item.name}</h3><b>{item.price}</b><span>Explore →</span></div></Link>)}</div>
     </section>
 
     <section className="product-cro-section product-faq"><span className="product-cro-kicker">Good to know</span><h2>Before you order.</h2><details><summary>Can I order it completely plain?</summary><p>Yes. Where the format allows, we can quote an unprinted economy version as well as branded options.</p></details><details><summary>What do you need for an exact quote?</summary><p>Dimensions, quantity, product weight or use, material preference, print coverage and delivery PIN code. A sample photo is useful when available.</p></details><details><summary>Is design support really included?</summary><p>Yes. Basic dieline setup, artwork positioning and a digital production proof are included before manufacturing. Complex brand identity or illustration work is quoted separately.</p></details><details><summary>Can I reorder the same specification?</summary><p>Yes. Once approved, the structure and artwork specification can be used for planned repeat production.</p></details></section>

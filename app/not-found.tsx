@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <main style={{padding:'80px 24px',textAlign:'center'}}><p>404 · Page unavailable</p><h1>Let’s find the right packaging.</h1><p>This page may have moved or the product is no longer listed.</p><Link href="/products" style={{display:'inline-block',padding:'14px 24px',background:'#2f154b',color:'#fff',borderRadius:5}}>Browse packaging →</Link></main>;}

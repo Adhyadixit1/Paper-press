@@ -16,7 +16,7 @@ function processFor(item:B2BCategory){
   return stepCopy.retail;
 }
 
-export default function CategoryCRO({item,related,images}:{item:B2BCategory;related:B2BCategory[];images:string[]}){
+export default function CategoryCRO({item,related,images}:{item:B2BCategory;related:(B2BCategory&{images?:string[]})[];images:string[]}){
   const story=categoryStories[item.slug];
   if(!story)return null;
   const variant=Math.abs(item.slug.split('').reduce((sum,char)=>sum+char.charCodeAt(0),0))%3;
@@ -32,7 +32,7 @@ export default function CategoryCRO({item,related,images}:{item:B2BCategory;rela
       </div>
       <div className="story-opener-media">
         <img src={images[0]} alt={`${item.name} designed for wholesale use`}/>
-        <img src={images[3]||images[1]} alt={`${item.name} materials and construction detail`}/>
+        <img src={images[3]||images[1]||images[0]} alt={`${item.name} materials and construction detail`}/>
       </div>
     </section>
 
@@ -67,13 +67,13 @@ export default function CategoryCRO({item,related,images}:{item:B2BCategory;rela
     </section>
 
     <section className="story-reviews">
-      <header><span>Buyer perspective</span><h2>What a successful pack should change.</h2><p>Illustrative feedback based on the outcomes procurement teams evaluate. Replace these with verified customer reviews as projects are completed.</p></header>
-      <div>{story.reviews.map((review,index)=><article key={review}><span>★★★★★</span><blockquote>“{review}”</blockquote><b>{item.uses[index]||item.uses[0]}</b><small>Illustrative B2B review</small></article>)}</div>
+      <header><span>Buyer perspective</span><h2>What a successful pack should change.</h2><p>Procurement goals to review with your team before approving production. These are illustrative outcomes, not customer testimonials.</p></header>
+      <div>{story.reviews.map((review,index)=><article key={review}><span>Buyer goal</span><blockquote>“{review}”</blockquote><b>{item.uses[index]||item.uses[0]}</b><small>Illustrative buying objective</small></article>)}</div>
     </section>
 
     <section className="story-related">
       <header><span>Build the complete system</span><h2>Often specified alongside {item.name.toLowerCase()}.</h2></header>
-      <div>{related.map(product=><Link href={`/categories/${product.slug}`} key={product.slug}><img src={`/catalog/${product.slug}-01.webp`} alt={`${product.name} wholesale packaging`}/><small>{product.family}</small><h3>{product.name}</h3><b>{product.price}</b><span>{product.moq} · Explore →</span></Link>)}</div>
+      <div>{related.map(product=><Link href={`/categories/${product.slug}`} key={product.slug}><img src={product.images?.[0]||`/catalog/${product.slug}-01.webp`} alt={`${product.name} wholesale packaging`}/><small>{product.family}</small><h3>{product.name}</h3><b>{product.price}</b><span>{product.moq} · Explore →</span></Link>)}</div>
     </section>
 
     <section className="story-faq">

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { ProductCard } from './SiteChrome';
-import { products } from './data';
+import {getCatalog} from '../lib/catalog';
+import {pageSeo} from '../lib/seo';
+export const metadata=pageSeo('Paper & Press — Wholesale Packaging Jaipur','Custom printed boxes, café packaging, courier cartons and premium print for businesses across India. Explore sizes, materials and wholesale prices.','/');
 import HomeHero from './HomeHero';
 
 const heroSlides = [
@@ -20,9 +22,10 @@ const trends = [
 ];
 const inspirationBrands=['Baggu','Momofuku','Sweetgreen','Carhartt WIP','Partners Coffee','Arc’teryx'];
 
-export default function Home() {
+export default async function Home() {
+  const catalog=await getCatalog();const products=catalog.filter(p=>p.kind==='product');const urls=new Set(catalog.map(p=>`/${p.kind==='category'?'categories':'products'}/${p.slug}`));const available=(href:string)=>!/^\/(categories|products)\//.test(href)||urls.has(href);const slides=heroSlides.filter(s=>available(s.href)).map(s=>({...s,links:s.links.filter(l=>available(l.href))}));
   return <main>
-    <HomeHero slides={heroSlides}/>
+    <HomeHero slides={slides}/>
 
     <section className="brand-rail" aria-label="Packaging inspiration from leading brands"><div className="brand-rail-track">{[0,1].map(loop=><div className="brand-rail-group" aria-hidden={loop===1?'true':undefined} key={loop}><span>Packaging inspiration from leading brands</span>{inspirationBrands.map(brand=><b key={`${loop}-${brand}`}>{brand}</b>)}</div>)}</div></section>
 
@@ -30,7 +33,7 @@ export default function Home() {
 
     <section className="campaign"><img src="/generated/cafe-collection.png" alt="Paper & Press café and takeaway collection"/><div><span>Designed to work together</span><h2>One brand.<br/>Every touchpoint.</h2><p>Carry your identity from the first coffee of the day to the box your customer takes home.</p><Link href="/industries">Explore food & hospitality →</Link></div></section>
 
-    <section className="trending"><div className="shelf-heading"><h2>Trending now</h2><Link href="/products">Shop all →</Link></div><div className="trend-grid">{trends.map(trend => <Link href={trend.href} key={trend.name}><img src={trend.image} alt={trend.name}/><h3>{trend.name}</h3><span>Shop now →</span></Link>)}</div></section>
+    <section className="trending"><div className="shelf-heading"><h2>Trending now</h2><Link href="/products">Shop all →</Link></div><div className="trend-grid">{trends.filter(trend=>available(trend.href)).map(trend => <Link href={trend.href} key={trend.name}><img src={trend.image} alt={trend.name}/><h3>{trend.name}</h3><span>Shop now →</span></Link>)}</div></section>
 
     <section className="home-signup"><div><span>Fresh from the press</span><h2>More possibilities,<br/>less inbox noise.</h2></div><form><p>Material guides, new products and packaging ideas sent occasionally.</p><div><input aria-label="Email address" placeholder="Email address" type="email"/><button type="button">Sign up now →</button></div></form></section>
   </main>;

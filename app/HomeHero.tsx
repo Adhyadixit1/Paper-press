@@ -40,7 +40,7 @@ export default function HomeHero({slides}:{slides:HeroSlide[]}){
   return <section className="hero-carousel" aria-label="Popular packaging categories" ref={track}>
     {slides.map((slide,index)=><article className="hero-slide" key={slide.title}>
       <img src={slide.image} alt={`${slide.title} by Paper & Press`}/><div className="hero-overlay"/>
-      <div className="hero-copy"><span>0{index+1} / 0{slides.length}</span><h1>{slide.title}</h1><div>{slide.links.map(link=><Link href={link.href} key={link.label}>{link.label}</Link>)}</div><Link className="hero-shop" href={slide.href}>Shop now <b>→</b></Link></div>
+      <div className="hero-copy"><span>0{index+1} / 0{slides.length}</span>{index===0?<h1>{slide.title}</h1>:<h2>{slide.title}</h2>}<div>{slide.links.map(link=><Link href={link.href} key={link.label}>{link.label}</Link>)}</div><Link className="hero-shop" href={slide.href}>Shop now <b>→</b></Link></div>
     </article>)}
   </section>;
 }
