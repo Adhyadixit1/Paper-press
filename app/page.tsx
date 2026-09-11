@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ProductCard } from './SiteChrome';
 import {getCatalog} from '../lib/catalog';
 import {JsonLd,pageSeo,siteUrl} from '../lib/seo';
@@ -22,13 +23,13 @@ const trends = [
 ];
 const inspirationBrands=['Baggu','Momofuku','Sweetgreen','Carhartt WIP','Partners Coffee','Arc’teryx'];
 const founderCards=[
-  {name:'Ojas Dixit',initials:'OD',photo:'/founders/ojas-dixit.jpeg',role:'Co-founder · Brand, sales and growth',copy:'Ojas works closest to founders, restaurants, manufacturers and retail teams—turning rough packaging ideas into clear briefs, commercial options and repeatable buying systems.'},
-  {name:'Pradhuman Sharma',initials:'PS',photo:'/founders/pradhuman-sharma.jpeg',role:'Co-founder · Operations and production',copy:'Pradhuman focuses on production discipline: material selection, vendor coordination, proof checks, timelines and dispatch planning so bulk packaging feels predictable.'},
+  {name:'Ojas Dixit',initials:'OD',photo:'/founders/ojas-studio-v3.png',role:'Co-founder · Brand, sales and growth',copy:'Ojas works closest to founders, restaurants, manufacturers and retail teams—turning rough packaging ideas into clear briefs, commercial options and repeatable buying systems.'},
+  {name:'Pradhuman Sharma',initials:'PS',photo:'/founders/pradhuman-studio-v2.png',role:'Co-founder · Operations and production',copy:'Pradhuman focuses on production discipline: material selection, vendor coordination, proof checks, timelines and dispatch planning so bulk packaging feels predictable.'},
 ];
 const trustCards=[
-  {metric:'Brief clarity first',copy:'Buyers tell us the biggest relief is knowing what size, material, MOQ and finish they should choose before spending on bulk production.'},
-  {metric:'Rajasthan-first supply',copy:'Jaipur coordination with door-to-door planning for restaurants, sweet shops, FMCG units, hospitals, salons, garment brands and courier teams.'},
-  {metric:'Bulk-only focus',copy:'No confusing retail checkout. Paper & Press is designed for serious B2B orders, repeat supply and brand-ready packaging runs.'},
+  {metric:'Brief clarity first',copy:'The right size, material and finish for your budget.',href:'/quote'},
+  {metric:'Rajasthan-first supply',copy:'Made for your business. Delivered across India.',href:'/delivery'},
+  {metric:'Bulk-only focus',copy:'Wholesale runs and reliable repeat supply.',href:'/wholesale'},
 ];
 const localSearchLinks=[
   ['Ghee boxes in Jaipur','/packaging/ghee-boxes/jaipur'],
@@ -53,52 +54,51 @@ export default async function Home() {
 
     <section className="brand-rail" aria-label="Packaging inspiration from leading brands"><div className="brand-rail-track">{[0,1].map(loop=><div className="brand-rail-group" aria-hidden={loop===1?'true':undefined} key={loop}><span>Packaging inspiration from leading brands</span>{inspirationBrands.map(brand=><b key={`${loop}-${brand}`}>{brand}</b>)}</div>)}</div></section>
 
-    <section className="home-story" id="founders">
-      <div className="home-story-copy">
-        <span>Built in Jaipur</span>
-        <h2>Two Jaipur founders making packaging easier for ambitious Indian brands.</h2>
-        <p>Paper & Press is led by Ojas Dixit and Pradhuman Sharma, two Jaipur founders building a practical, design-aware packaging partner for businesses that are ready to scale. The idea is simple: if a brand can describe what it sells, we should be able to guide the right box, paper, print finish, quantity plan and delivery route without making the buyer chase five different suppliers.</p>
-        <p>From ghee cartons, pizza boxes and mithai boxes to masala packaging, courier boxes, cafe cups, hospital files and garment inserts, the team focuses on bulk production that looks good, protects the product and arrives with clear communication.</p>
-        <div className="home-story-links">
-          <Link href="/about">Read our story</Link>
-          <Link href="/quote">Start a packaging brief</Link>
-        </div>
-      </div>
-      <div className="founder-grid" aria-label="Founder image placeholders">
-        {founderCards.map(founder=><article key={founder.name}>
-          <div className={`founder-photo ${founder.photo?'has-photo':''}`}>{founder.photo?<img src={founder.photo} alt={`${founder.name}, Paper & Press founder`}/>:<><b>{founder.initials}</b><span>Image placeholder</span></>}</div>
-          <h3>{founder.name}</h3>
-          <small>{founder.role}</small>
-          <p>{founder.copy}</p>
-        </article>)}
-      </div>
-    </section>
-
-    <section className="home-trust">
-      <div>
-        <span>Why buyers remember us</span>
-        <h2>Structured sourcing, better packaging decisions.</h2>
-      </div>
-      <div className="trust-grid">
-        {trustCards.map(card=><article key={card.metric}><b>{card.metric}</b><p>{card.copy}</p></article>)}
-      </div>
-    </section>
-
     <section className="product-shelf"><div className="shelf-heading"><h2>Wholesale Must-Haves</h2><div><button aria-label="Previous products">←</button><button aria-label="Next products">→</button></div></div><div className="product-track">{products.slice(0,9).map(product => <ProductCard key={product.slug} product={product}/>)}</div><Link className="all-link" href="/products">Shop all products →</Link></section>
 
     <section className="campaign"><img src="/generated/cafe-collection.png" alt="Paper & Press café and takeaway collection"/><div><span>Designed to work together</span><h2>One brand.<br/>Every touchpoint.</h2><p>Carry your identity from the first coffee of the day to the box your customer takes home.</p><Link href="/industries">Explore food & hospitality →</Link></div></section>
 
-    <section className="trending"><div className="shelf-heading"><h2>Trending now</h2><Link href="/products">Shop all →</Link></div><div className="trend-grid">{trends.filter(trend=>available(trend.href)).map(trend => <Link href={trend.href} key={trend.name}><img src={trend.image} alt={trend.name}/><h3>{trend.name}</h3><span>Shop now →</span></Link>)}</div></section>
+    <section className="trending" aria-labelledby="trending-title"><div className="shelf-heading"><h2 id="trending-title">Trending now</h2><Link href="/products">Shop all →</Link></div><div className="trend-grid" aria-label="Trending packaging categories">{trends.filter(trend=>available(trend.href)).map(trend => <Link href={trend.href} key={trend.name}><img src={trend.image} alt={trend.name}/><h3>{trend.name}</h3><span>Shop now →</span></Link>)}</div><p className="trend-swipe-hint">Swipe to explore →</p></section>
+
+    <section className="home-trust">
+      <div>
+        <span>Why buyers remember us</span>
+        <h2>Better packaging. Less back-and-forth.</h2>
+      </div>
+      <div className="trust-grid" aria-label="Why businesses choose Paper & Press">
+        {trustCards.map(card=><Link href={card.href} key={card.metric}><b>{card.metric}</b><p>{card.copy}</p><span>Learn more →</span></Link>)}
+      </div>
+      <p className="home-swipe-hint">Swipe to explore →</p>
+    </section>
 
     <section className="local-search-hub">
       <div>
         <span>Local packaging supply</span>
-        <h2>Find box and paper packaging by product and city.</h2>
-        <p>We’ve organised local packaging pages for Jaipur localities and Rajasthan cities so buyers can quickly compare use cases, sizes, material tiers, wholesale ranges and the production process for their product category.</p>
+        <h2>Your packaging. Your city.</h2>
+        <p>Explore local options, wholesale prices and delivery across Rajasthan.</p>
       </div>
       <nav aria-label="Popular local packaging searches">
         {localSearchLinks.map(([label,href])=><Link href={href} key={href}>{label} →</Link>)}
       </nav>
+      <p className="home-swipe-hint local-swipe-hint">Swipe for more cities →</p>
+    </section>
+
+    <section className="home-story" id="founders">
+      <div className="home-story-copy">
+        <span>Built in Jaipur</span>
+        <h2>Two founders. One simple idea.</h2>
+        <p>We’re Ojas and Pradhuman, building Paper &amp; Press in Jaipur to make great packaging easier for growing brands.</p>
+        <div className="home-story-links">
+          <Link href="/about">Read our story</Link>
+        </div>
+      </div>
+      <div className="founder-grid" aria-label="Meet the founders">
+        {founderCards.map(founder=><article key={founder.name}>
+          <div className="founder-photo has-photo"><Image src={founder.photo} alt={`${founder.name}, Paper & Press founder`} width={1122} height={1402} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 43vw, 24vw" /></div>
+          <h3>{founder.name}</h3>
+          <small>{founder.role}</small>
+        </article>)}
+      </div>
     </section>
 
     <section className="home-signup"><div><span>Fresh from the press</span><h2>More possibilities,<br/>less inbox noise.</h2></div><form><p>Material guides, new products and packaging ideas sent occasionally.</p><div><input aria-label="Email address" placeholder="Email address" type="email"/><button type="button">Sign up now →</button></div></form></section>
