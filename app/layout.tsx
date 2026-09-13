@@ -24,6 +24,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Paper & Press — Print Packaging Possibilities',
   description: 'Premium custom print and packaging, beautifully made for ambitious brands.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/brand/brand-mark.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [{ url: '/brand/brand-mark.png', sizes: '512x512', type: 'image/png' }],
+  },
   openGraph: { title: 'Paper & Press', description: 'Print • Packaging • Possibilities', type: 'website', images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Paper & Press — Print Packaging Possibilities' }] },
   twitter: { card: 'summary_large_image', title: 'Paper & Press', description: 'Print • Packaging • Possibilities', images: ['/og.png'] },
 };
